@@ -45,7 +45,7 @@ public class Movable : MonoBehaviour {
 		if(Input.GetKey(KeyCode.W) && transform.position.y < -0.6f)
 			body.AddForce(new Vector2(0.0f, 75.0f));
 
-		if(Input.GetMouseButtonDown(0))
+		if(Input.GetMouseButtonDown(0) || Input.GetKeyDown(KeyCode.W))
 		{
 			if(grounded)
 			{
@@ -54,7 +54,7 @@ public class Movable : MonoBehaviour {
 			}
 		}
 
-		if(Input.GetMouseButton(0) && !stoppedJumping)
+		if((Input.GetMouseButton(0) || Input.GetKey(KeyCode.W)) && !stoppedJumping)
 		{
 			if(jumpTimeCounter > 0)
 			{
@@ -63,7 +63,7 @@ public class Movable : MonoBehaviour {
 			}
 		}
 
-		if(Input.GetMouseButtonUp(0))
+		if(Input.GetMouseButtonUp(0) || Input.GetKeyUp(KeyCode.W))
 		{
 			jumpTimeCounter = 0;
 			stoppedJumping = true;

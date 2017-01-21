@@ -1,16 +1,47 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using System.Collections.Generic;
 
-public class Level : MonoBehaviour {
+public class Level {
 
-	// Use this for initialization
-	void Start () {
-		
+	public List<int> sequence { get; set; }
+
+	public Level (List<int> l)
+	{
+		sequence = l;
 	}
-	
-	// Update is called once per frame
-	void Update () {
-		
+
+	public Level (int[] l)
+	{
+		foreach(int i in l)
+		{
+			sequence.Add(i);
+		}
 	}
+
+	public void generateSequence (int length)
+	{
+		/*
+		 *	For each unit
+		 *		Look behind
+		 *		if first unit
+		 *			place h2
+		 *		else if second unit
+		 *			place h2
+		 *		else
+		 *			if last two are not h0
+		 *				place h0
+		 *			else if last unit is h0
+		 *				set height to random
+		 *			else if last is not h0
+		 *				if random number passes
+		 *					place h0
+		 *				else
+		 *					place same height
+		 */
+
+		for(int i = 0; i < length; i++)
+		{
+			
+		}
+	}
+
 }
