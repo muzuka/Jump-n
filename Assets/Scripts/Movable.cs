@@ -3,8 +3,7 @@ using UnityEngine;
 
 public class Movable : MonoBehaviour {
 
-	bool falling;
-	bool jumping;
+	public Transform startTransform;
 
 	public float jumpForce;
 	public float jumpTime;
@@ -19,32 +18,23 @@ public class Movable : MonoBehaviour {
 
 	Rigidbody2D body;
 
-	void Start () {
-		falling = false;
-		jumping = false;
-
+	void Start () 
+	{
 		jumpTimeCounter = jumpTime;
 
 		body = GetComponent<Rigidbody2D>();
 	}
 
-	void Update () {
-		falling = body.velocity.y < 0.0f;
-		jumping = body.velocity.y > 0.0f;
-
+	void Update () 
+	{
 		grounded = Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, whatIsGround);
 
 		if(grounded)
-		{
 			jumpTimeCounter = jumpTime;
-		}
-
 	}
 
-	void FixedUpdate () {
-		if(Input.GetKey(KeyCode.W) && transform.position.y < -0.6f)
-			body.AddForce(new Vector2(0.0f, 75.0f));
-
+	void FixedUpdate () 
+	{
 		if(Input.GetMouseButtonDown(0) || Input.GetKeyDown(KeyCode.W))
 		{
 			if(grounded)
@@ -68,5 +58,10 @@ public class Movable : MonoBehaviour {
 			jumpTimeCounter = 0;
 			stoppedJumping = true;
 		}
+	}
+
+	public void restartGame ()
+	{
+		transform.position = startTransform.position;
 	}
 }
