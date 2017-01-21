@@ -28,8 +28,15 @@ public class GUIController : MonoBehaviour {
 		}
 	}
 
+	public void resumeGame ()
+	{
+		Time.timeScale = 1.0f;
+		pauseMenu.gameObject.SetActive(false);
+	}
+
 	public void restartGame ()
 	{
+		paused = false;
 		loseMenu.gameObject.SetActive(false);
 		pauseMenu.gameObject.SetActive(false);
 	}

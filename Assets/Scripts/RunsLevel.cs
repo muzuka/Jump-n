@@ -10,7 +10,7 @@ public class RunsLevel : MonoBehaviour {
 
 	void Update ()
 	{
-		GameObject[] bodies = FindObjectsOfType<GameObject>();
+		BoxCollider2D[] bodies = FindObjectsOfType<BoxCollider2D>();
 
 		for(int i = 0; i < bodies.Length; i++)
 		{
@@ -26,8 +26,21 @@ public class RunsLevel : MonoBehaviour {
 
 	public void restartGame ()
 	{
-		player.GetComponent<Moveable>();
+		BoxCollider2D[] bodies = FindObjectsOfType<BoxCollider2D>();
+
+		for(int i = 0; i < bodies.Length; i++)
+		{
+			if(bodies[i].tag == "Tile")
+				Destroy(bodies[i].gameObject);
+		}
+
+		player.GetComponent<Moveable>().restartGame();
 		GetComponent<LevelBuilder>().restartGame();
 		GetComponent<GUIController>().restartGame();
+	}
+
+	public void quitGame ()
+	{
+		UnityEditor.EditorApplication.isPlaying = false;
 	}
 }

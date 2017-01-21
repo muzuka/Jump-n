@@ -22,6 +22,8 @@ public class LevelBuilder : MonoBehaviour {
 
 	public void restartGame ()
 	{
+		current = start;
+
 		buildLevel(new Level(level));
 	}
 

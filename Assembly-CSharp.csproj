@@ -50,7 +50,7 @@
      <Compile Include="Assets\Scripts\Level.cs" />
      <Compile Include="Assets\Scripts\LevelBuilder.cs" />
      <Compile Include="Assets\Scripts\Loser.cs" />
-     <Compile Include="Assets\Scripts\Movable.cs" />
+     <Compile Include="Assets\Scripts\Moveable.cs" />
      <Compile Include="Assets\Scripts\RunsLevel.cs" />
      <Compile Include="Assets\Scripts\SetToEdge.cs" />
  <Reference Include="UnityEngine.UI">

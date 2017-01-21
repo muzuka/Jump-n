@@ -1,7 +1,7 @@
 ﻿
 using UnityEngine;
 
-public class Movable : MonoBehaviour {
+public class Moveable : MonoBehaviour {
 
 	public Transform startTransform;
 
@@ -62,6 +62,8 @@ public class Movable : MonoBehaviour {
 
 	public void restartGame ()
 	{
+		jumpTimeCounter = jumpTime;
+		body.velocity = new Vector3();
 		transform.position = startTransform.position;
 	}
 }
