@@ -3,8 +3,10 @@ using UnityEngine;
 
 public class LevelBuilder : MonoBehaviour {
 
-	//public List<int> level;
-	public int level;
+	//public List<int> platforms;
+	public int platforms;
+
+	public bool infinite;
 
 	public Vector2 start;
 
