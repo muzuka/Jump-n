@@ -16,10 +16,10 @@ public class CloudController : MonoBehaviour {
 	void Start () 
 	{
 		clouds = new GameObject[4];
-		clouds[0] = Resources.Load<GameObject>("Prefabs/CloudSmall");
-		clouds[1] = Resources.Load<GameObject>("Prefabs/CloudSmall2");
-		clouds[2] = Resources.Load<GameObject>("Prefabs/CloudMedium");
-		clouds[3] = Resources.Load<GameObject>("Prefabs/CloudLarge");
+		clouds[0] = Resources.Load<GameObject>("Prefabs/Background/CloudSmall");
+		clouds[1] = Resources.Load<GameObject>("Prefabs/Background/CloudSmall2");
+		clouds[2] = Resources.Load<GameObject>("Prefabs/Background/CloudMedium");
+		clouds[3] = Resources.Load<GameObject>("Prefabs/Background/CloudLarge");
 	}
 	
 	// Update is called once per frame
