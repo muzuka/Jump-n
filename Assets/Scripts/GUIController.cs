@@ -5,11 +5,17 @@ public class GUIController : MonoBehaviour {
 
 	public Image loseMenu;
 	public Image pauseMenu;
+	public Text timer;
+
+	float currentTime;
 
 	bool paused;
 
 	void Start () 
 	{
+		currentTime = 0.0f;
+		timer.text = currentTime.ToString();
+
 		paused = false;
 		pauseMenu.gameObject.SetActive(false);
 		loseMenu.gameObject.SetActive(false);
@@ -17,6 +23,9 @@ public class GUIController : MonoBehaviour {
 
 	void Update ()
 	{
+		currentTime += Time.deltaTime;
+		timer.text = currentTime.ToString();
+
 		if(Input.GetKeyDown(KeyCode.P))
 		{
 			paused = !paused;
@@ -36,6 +45,7 @@ public class GUIController : MonoBehaviour {
 
 	public void restartGame ()
 	{
+		currentTime = 0.0f;
 		paused = false;
 		loseMenu.gameObject.SetActive(false);
 		pauseMenu.gameObject.SetActive(false);
