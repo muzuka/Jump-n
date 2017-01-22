@@ -2,6 +2,8 @@
 
 public class RunsLevel : MonoBehaviour {
 
+	public bool debug;
+
 	public GameObject player;
 
 	public Transform behind;
@@ -34,6 +36,8 @@ public class RunsLevel : MonoBehaviour {
 				Destroy(bodies[i].gameObject);
 		}
 
+		Time.timeScale = 1.0f;
+
 		player.GetComponent<Moveable>().restartGame();
 		GetComponent<LevelBuilder>().restartGame();
 		GetComponent<GUIController>().restartGame();
@@ -41,6 +45,9 @@ public class RunsLevel : MonoBehaviour {
 
 	public void quitGame ()
 	{
-		UnityEditor.EditorApplication.isPlaying = false;
+		if(debug)
+			UnityEditor.EditorApplication.isPlaying = false;
+		else
+			Application.Quit();
 	}
 }
