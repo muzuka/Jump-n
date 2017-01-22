@@ -25,8 +25,11 @@ public class RunsLevel : MonoBehaviour {
 			{
 				bodies[i].transform.Translate(new Vector3(-speed * Time.deltaTime, 0.0f, 0.0f));
 
-				if(bodies[i].transform.position.x <= behind.position.x - 5)
-					Destroy(bodies[i]);
+				if(!GetComponent<LevelBuilder>().infinite)
+				{
+					if(bodies[i].transform.position.x <= behind.position.x - 5)
+						Destroy(bodies[i]);
+				}
 			}
 		}
 	}
