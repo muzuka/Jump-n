@@ -47,8 +47,6 @@ public class Level {
 		 *					place same height
 		 */
 
-		UnityEngine.Random.InitState((int)System.DateTime.Now.Ticks);
-
 		for(int i = 0; i < length; i++)
 		{
 			if(i == 0)

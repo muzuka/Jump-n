@@ -10,6 +10,11 @@ public class RunsLevel : MonoBehaviour {
 
 	public float speed;
 
+	void Awake () 
+	{
+		Random.InitState((int)System.DateTime.Now.Ticks);
+	}
+
 	void Update ()
 	{
 		BoxCollider2D[] bodies = FindObjectsOfType<BoxCollider2D>();
