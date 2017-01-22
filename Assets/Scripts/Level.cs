@@ -64,7 +64,12 @@ public class Level {
 				if(sequence[i-1] != 0 && sequence[i-2] != 0)
 					sequence.Add(0);
 				else if(sequence[i-1] == 0)
-					sequence.Add((int)UnityEngine.Random.Range(1.0f, sequence[i-2] + 2));
+				{
+					if(sequence[i-2] == 6)
+						sequence.Add((int)UnityEngine.Random.Range(1.0f, sequence[i-2]));
+					else
+						sequence.Add((int)UnityEngine.Random.Range(1.0f, sequence[i-2] + 2));
+				}
 				else if(sequence[i-1] != 0)
 				{
 					if((int)System.Math.Round(UnityEngine.Random.value) == 1)
