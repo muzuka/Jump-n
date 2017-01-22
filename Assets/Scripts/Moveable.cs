@@ -1,6 +1,6 @@
-﻿
-using UnityEngine;
+﻿using UnityEngine;
 
+// Method is from Unity user "topherbwell" as described here: https://forum.unity3d.com/threads/mario-style-jumping.381906/
 public class Moveable : MonoBehaviour {
 
 	public Transform startTransform;
@@ -35,7 +35,12 @@ public class Moveable : MonoBehaviour {
 
 	void FixedUpdate () 
 	{
-		if(Input.GetMouseButtonDown(0) || Input.GetKeyDown(KeyCode.W))
+		if(stoppedJumping)
+			Time.fixedDeltaTime = 0.01f;
+		else
+			Time.fixedDeltaTime = 0.02f;
+
+		if(Input.GetKeyDown(KeyCode.Space))
 		{
 			if(grounded)
 			{
@@ -44,7 +49,7 @@ public class Moveable : MonoBehaviour {
 			}
 		}
 
-		if((Input.GetMouseButton(0) || Input.GetKey(KeyCode.W)) && !stoppedJumping)
+		if(Input.GetKey(KeyCode.Space) && !stoppedJumping)
 		{
 			if(jumpTimeCounter > 0)
 			{
@@ -53,7 +58,7 @@ public class Moveable : MonoBehaviour {
 			}
 		}
 
-		if(Input.GetMouseButtonUp(0) || Input.GetKeyUp(KeyCode.W))
+		if(Input.GetKeyUp(KeyCode.Space))
 		{
 			jumpTimeCounter = 0;
 			stoppedJumping = true;
