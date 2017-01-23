@@ -9,6 +9,7 @@ public class GUIController : MonoBehaviour {
 
 	float currentTime;
 
+	bool lost;
 	bool paused;
 
 	void Start () 
@@ -16,6 +17,7 @@ public class GUIController : MonoBehaviour {
 		currentTime = 0.0f;
 		timer.text = currentTime.ToString();
 
+		lost = false;
 		paused = false;
 		pauseMenu.gameObject.SetActive(false);
 		loseMenu.gameObject.SetActive(false);
@@ -23,8 +25,9 @@ public class GUIController : MonoBehaviour {
 
 	void Update ()
 	{
-		currentTime += Time.deltaTime;
-		timer.text = currentTime.ToString();
+		if(!(paused || lost))
+			currentTime += Time.deltaTime;
+		timer.text = System.Math.Round(currentTime, 2).ToString();
 
 		if(Input.GetKeyDown(KeyCode.P))
 		{
@@ -47,6 +50,7 @@ public class GUIController : MonoBehaviour {
 	{
 		currentTime = 0.0f;
 		paused = false;
+		lost = false;
 		loseMenu.gameObject.SetActive(false);
 		pauseMenu.gameObject.SetActive(false);
 	}
@@ -54,5 +58,6 @@ public class GUIController : MonoBehaviour {
 	public void lostGame ()
 	{
 		loseMenu.gameObject.SetActive(true);
+		lost = true;
 	}
 }

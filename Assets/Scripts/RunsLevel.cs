@@ -2,18 +2,11 @@
 
 public class RunsLevel : MonoBehaviour {
 
-	public bool debug;
-
 	public GameObject player;
 
 	public Transform behind;
 
 	public float speed;
-
-	void Awake () 
-	{
-		Random.InitState((int)System.DateTime.Now.Ticks);
-	}
 
 	void Update ()
 	{
@@ -53,9 +46,6 @@ public class RunsLevel : MonoBehaviour {
 
 	public void quitGame ()
 	{
-		if(debug)
-			UnityEditor.EditorApplication.isPlaying = false;
-		else
-			Application.Quit();
+		Application.Quit();
 	}
 }

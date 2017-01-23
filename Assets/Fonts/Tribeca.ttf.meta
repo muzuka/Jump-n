@@ -1,0 +1,21 @@
+fileFormatVersion: 2
+guid: 453227a09c5e04edb97bcf877949f62c
+timeCreated: 1485118547
+licenseType: Free
+TrueTypeFontImporter:
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: Tribeca
+  fontNames:
+  - Tribeca
+  fallbackFontReferences: []
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

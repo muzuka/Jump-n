@@ -2,13 +2,13 @@
 
 public class CloudController : MonoBehaviour {
 
-	public Camera camera;
+	public Camera cloudCamera;
 	public Transform forwardBoundary;
 	public Transform behindBoundary;
 
 	GameObject[] realClouds = {null, null, null, null};
 	GameObject[] clouds;
-	float[] timesToRelease = {5.0f, 2.0f, 7.0f, 10.0f};
+	float[] timesToRelease = {3.0f, 2.0f, 5.0f, 7.0f};
 	float[] timers = {0.0f, 0.0f, 0.0f, 0.0f};
 
 
@@ -27,13 +27,6 @@ public class CloudController : MonoBehaviour {
 	{
 		for(int i = 0; i < 4; i++)
 		{
-			timers[i] += Time.deltaTime;
-			if(timers[i] >= timesToRelease[i])
-			{
-				releaseCloud(i);
-				timers[i] = 0.0f;
-			}
-
 			if(realClouds[i] != null)
 			{
 				realClouds[i].transform.Translate(-7.0f * Time.deltaTime, 0.0f, 0.0f);
@@ -43,11 +36,21 @@ public class CloudController : MonoBehaviour {
 					Destroy(realClouds[i]);
 				}
 			}
+			else 
+			{
+				timers[i] += Time.deltaTime;
+				if(timers[i] >= timesToRelease[i])
+				{
+					releaseCloud(i);
+					timers[i] = 0.0f;
+				}
+			}
 		}
 	}
 
-	void releaseCloud (int i) {
-		float height = Random.Range(camera.ScreenToWorldPoint(new Vector2(0.0f, 0.0f)).y, camera.ScreenToWorldPoint(new Vector2(0.0f, Screen.height)).y);
+	void releaseCloud (int i) 
+	{
+		float height = Random.Range(cloudCamera.ScreenToWorldPoint(new Vector2(0.0f, 0.0f)).y - 5.0f, cloudCamera.ScreenToWorldPoint(new Vector2(0.0f, Screen.height)).y + 10.0f);
 
 		realClouds[i] = Instantiate(clouds[i], new Vector2(forwardBoundary.position.x + 5.0f, height), Quaternion.identity);
 	}

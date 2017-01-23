@@ -15,6 +15,8 @@ public class LevelBuilder : MonoBehaviour {
 	public Vector2 addTop;
 	public Vector2 addEnd;
 
+	public Transform behindBoundary;
+
 	Vector2 current;
 	InfiniteLevel infLevel;
 
@@ -27,21 +29,37 @@ public class LevelBuilder : MonoBehaviour {
 			infLevel = new InfiniteLevel(platforms);
 			buildLevel(infLevel);
 		}
-		buildLevel(new Level(platforms));
+		else 
+		{
+			buildLevel(new Level(platforms));
+		}
 	}
 
 	void Update ()
 	{
 		if(infinite)
 		{
+			float speed = GetComponent<RunsLevel>().speed;
+			current -= new Vector2(speed * Time.deltaTime, 0.0f);
+
 			if(infLevel.needsPlatform())
 			{
+				Debug.Log("Built new platform");
+
 				infLevel.newPlatform();
-				buildPlatform(infLevel.sequence.Peek());
 			}
 			else if(infLevel.tooManyPlatforms())
 			{
-				
+				infLevel.sequence.Dequeue().destroy();
+			}
+
+			if(infLevel.sequence.Peek().right.transform.position.x < behindBoundary.position.x)
+			{
+
+				infLevel.sequence.Dequeue().destroy();
+
+				infLevel.newPlatform();
+				buildPlatform(infLevel.getLast());
 			}
 		}
 	}
@@ -52,7 +70,7 @@ public class LevelBuilder : MonoBehaviour {
 
 		if(infinite)
 		{
-			infLevel.sequence.Clear();
+			infLevel = new InfiniteLevel(platforms);
 			buildLevel(infLevel);
 		}
 		else
@@ -61,24 +79,21 @@ public class LevelBuilder : MonoBehaviour {
 
 	public void buildLevel (InfiniteLevel l)
 	{
-		while(l.needsPlatform()) {
+		while(l.needsPlatform()) 
+		{
 			l.newPlatform();
-			buildPlatform(l.sequence.Peek());
+			buildPlatform(l.getLast());
 		}
 	}
 
 	public void buildLevel (Level l)
 	{
 		for(int i = 0; i < l.sequence.Count; i++)
-		{
 			buildPlatform(l.sequence[i]);
-		}
 	}
 
-	Platform buildPlatform (int height)
+	void buildPlatform (int height)
 	{
-		Platform p = new Platform(height);
-
 		for(int h = 0; h < height; h++)
 		{
 			float tile = Random.Range(0.0f, 3.0f);
@@ -102,7 +117,38 @@ public class LevelBuilder : MonoBehaviour {
 
 		current += moveRight;
 		current.y = start.y;
+	}
 
-		return p;
+	void buildPlatform (Platform p)
+	{
+		for(int w = 0; w < p.width; w++)
+		{
+			for(int h = 0; h < p.height; h++)
+			{
+				float tile = Random.Range(0.0f, 3.0f);
+
+				if(tile <= 1.0f)
+					p.tiles[(p.width * h) + w] = (GameObject)Instantiate(Resources.Load("Prefabs/Platforms/PlatformTile"), current, Quaternion.identity); 
+				else if(tile <= 2.0f)
+					p.tiles[(p.width * h) + w] = (GameObject)Instantiate(Resources.Load("Prefabs/Platforms/PlatformTile2"), current, Quaternion.identity); 
+				else if(tile <= 3.0f)
+					p.tiles[(p.width * h) + w] = (GameObject)Instantiate(Resources.Load("Prefabs/Platforms/PlatformTile3"), current, Quaternion.identity); 
+
+				current += moveUp;
+			}
+				
+			p.tops[w] = (GameObject)Instantiate(Resources.Load("Prefabs/Platforms/PlatformTop"), current + addTop, Quaternion.identity);
+
+			if(w == 0)
+				p.left = (GameObject)Instantiate(Resources.Load("Prefabs/Platforms/PlatformLeftEnd"), current + addTop - addEnd, Quaternion.identity);
+			if(w == p.width - 1)
+				p.right = (GameObject)Instantiate(Resources.Load("Prefabs/Platforms/PlatformRightEnd"), current + addTop + addEnd, Quaternion.identity); 
+
+
+			current += moveRight;
+			current.y = start.y;
+		}
+
+		buildPlatform(0);
 	}
 }

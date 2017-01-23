@@ -1,38 +1,46 @@
 ﻿using System.Collections.Generic;
+using UnityEngine;
 
 
 public class InfiniteLevel {
 
-	public Queue<int> sequence { get; set; }
-
+	public Queue<Platform> sequence { get; set; }
 
 	int idealAmount;
 
 	public InfiniteLevel ()
 	{
-		sequence = new Queue<int>();
+		Random.InitState((int)System.DateTime.Now.Ticks);
+
+		sequence = new Queue<Platform>();
 		idealAmount = 50;
 	}
 
 	public InfiniteLevel (int id)
 	{
-		sequence = new Queue<int>();
+		Random.InitState((int)System.DateTime.Now.Ticks);
+
+		sequence = new Queue<Platform>();
 		idealAmount = id;
 	}
 
-	public InfiniteLevel (int[] l, int id)
+	public InfiniteLevel (Platform[] l, int id)
 	{
-		sequence = new Queue<int>();
+		Random.InitState((int)System.DateTime.Now.Ticks);
+
+		sequence = new Queue<Platform>();
 		idealAmount = id;
-		foreach(int i in l)
+		foreach(Platform i in l)
 			sequence.Enqueue(i);
 	}
 
-	public InfiniteLevel (List<int> l, int id)
+	public InfiniteLevel (List<Platform> l, int id)
 	{
-		sequence = new Queue<int>();
+		Random.InitState((int)System.DateTime.Now.Ticks);
+
+		sequence = new Queue<Platform>();
 		idealAmount = id;
-		foreach(int i in l)
+		foreach(Platform i in l)
 			sequence.Enqueue(i);
 	}
 
@@ -46,38 +54,41 @@ public class InfiniteLevel {
 		return sequence.Count > idealAmount;
 	}
 
+	public bool justRight ()
+	{
+		return sequence.Count == idealAmount;
+	}
+
 	public void newPlatform()
 	{
+		Random.InitState((int)System.DateTime.Now.Ticks);
+
 		if(sequence.Count == 0)
-			sequence.Enqueue(2);
+			sequence.Enqueue(new Platform(2, 4));
 		else if(sequence.Count == 1)
-			sequence.Enqueue(2);
-		else if(sequence.Count == 2)
-			sequence.Enqueue(2);
-		else if(sequence.Count == 3)
-			sequence.Enqueue(2);
+			sequence.Enqueue(new Platform(2, 2));
 		else
 		{
-			int i = 0;
-			int[] array = sequence.ToArray();
+			int width = (int)System.Math.Round(Random.Range(1.0f, 2.0f));
+			Platform[] array = sequence.ToArray();
+			int i = array.Length - 1;
 
-			if(array[i-1] != 0 && array[i-2] != 0)
-				sequence.Enqueue(0);
-			else if(array[i-1] == 0)
+			// if last platform was maximum height
+			if(array[i-1].height == 5)
+				sequence.Enqueue(new Platform((int)Random.Range(1.0f, array[i-1].height), width));
+			else
 			{
-				if(array[i-2] == 6)
-					sequence.Enqueue((int)UnityEngine.Random.Range(1.0f, array[i-2]));
-				else
-					sequence.Enqueue((int)UnityEngine.Random.Range(1.0f, array[i-2] + 2));
-			}
-			else if(array[i-1] != 0)
-			{
-				if((int)System.Math.Round(UnityEngine.Random.value) == 1)
-					sequence.Enqueue(0);
-				else
-					sequence.Enqueue(array[i-1]);
+				int rand = (int)Random.Range(1.0f, array[i-1].height + 2);
+				var temp = new Platform(rand, width);
+				sequence.Enqueue(temp);
 			}
 		}
 	}
 
+	public Platform getLast ()
+	{
+		Platform[] temp = sequence.ToArray();
+
+		return temp[temp.Length - 1];
+	}
 }

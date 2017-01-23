@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using UnityEngine;
 
 public class Level {
 
@@ -47,8 +48,11 @@ public class Level {
 		 *					place same height
 		 */
 
+		Random.InitState((int)System.DateTime.Now.Ticks);
+
 		for(int i = 0; i < length; i++)
 		{
+			// Ensures start has a platform of four.
 			if(i == 0)
 				sequence.Add(2);
 			else if(i == 1)
@@ -59,18 +63,18 @@ public class Level {
 				sequence.Add(2);
 			else
 			{
-				if(sequence[i-1] != 0 && sequence[i-2] != 0)
+				if(sequence[i-1] != 0 && sequence[i-2] != 0) // Keeps platforms at most 2 wide
 					sequence.Add(0);
-				else if(sequence[i-1] == 0)
+				else if(sequence[i-1] == 0) // Gaps should be at most 1 wide
 				{
-					if(sequence[i-2] == 6)
-						sequence.Add((int)UnityEngine.Random.Range(1.0f, sequence[i-2]));
+					if(sequence[i-2] == 6) // If platform is max then choose below.
+						sequence.Add((int)Random.Range(1.0f, sequence[i-2]));
 					else
-						sequence.Add((int)UnityEngine.Random.Range(1.0f, sequence[i-2] + 2));
+						sequence.Add((int)Random.Range(1.0f, sequence[i-2] + 2));
 				}
-				else if(sequence[i-1] != 0)
+				else if(sequence[i-1] != 0) // Choose to make platform 1 or 2 wide
 				{
-					if((int)System.Math.Round(UnityEngine.Random.value) == 1)
+					if((int)System.Math.Round(Random.value) == 1)
 						sequence.Add(0);
 					else
 						sequence.Add(sequence[i-1]);

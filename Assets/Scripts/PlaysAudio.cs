@@ -4,6 +4,6 @@ public class PlaysAudio : MonoBehaviour {
 
 	void OnTriggerEnter ()
 	{
-		GetComponent<AudioSource>().Play();
+		AudioSource.PlayClipAtPoint(GetComponent<AudioSource>().clip, transform.position);
 	}
 }
