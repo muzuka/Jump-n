@@ -8,6 +8,11 @@ public class RunsLevel : MonoBehaviour {
 
 	public float speed;
 
+	void Awake ()
+	{
+		Time.timeScale = 1.0f;
+	}
+
 	void Update ()
 	{
 		BoxCollider2D[] bodies = FindObjectsOfType<BoxCollider2D>();
@@ -46,6 +51,7 @@ public class RunsLevel : MonoBehaviour {
 
 	public void quitGame ()
 	{
-		Application.Quit();
+		//Application.Quit();
+		UnityEngine.SceneManagement.SceneManager.LoadScene("MainMenu");
 	}
 }
