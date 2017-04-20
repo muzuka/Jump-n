@@ -1,7 +1,7 @@
+﻿
 Microsoft Visual Studio Solution File, Format Version 11.00
-# Visual Studio 2008
-
-Project("{53794E29-C1CA-4494-7616-40287CE8B8EB}") = "WaveJumper", "Assembly-CSharp.csproj", "{3D20E70A-1BD2-BBB1-0E34-ACB90FAB657A}"
+# Visual Studio 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WaveJumper", "Assembly-CSharp.csproj", "{3D20E70A-1BD2-BBB1-0E34-ACB90FAB657A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
